@@ -1,9 +1,20 @@
+import { ConfirmToken } from "@/types/index";
 import { PinInput, PinInputField } from "@chakra-ui/pin-input";
 import { Link } from "react-router-dom";
 
-export default function NewPasswordToken() {
-  const handleChange = (token: string) => {};
-  const handleComplete = (token: string) => {};
+type NewPasswordTokenProps = {
+  token: ConfirmToken["token"];
+  setToken: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export default function NewPasswordToken({
+  token,
+  setToken,
+}: NewPasswordTokenProps) {
+  const handleChange = (token: ConfirmToken["token"]) => {
+    setToken(token);
+  };
+  const handleComplete = (token: ConfirmToken["token"]) => {};
 
   return (
     <>
@@ -13,7 +24,7 @@ export default function NewPasswordToken() {
         </label>
         <div className="flex justify-center gap-5">
           <PinInput
-            value={"123456"}
+            value={token}
             onChange={handleChange}
             onComplete={handleComplete}
           >
