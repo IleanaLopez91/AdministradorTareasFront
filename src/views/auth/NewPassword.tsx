@@ -20,7 +20,7 @@ function NewPassword() {
           setIsValidToken={setIsValidToken}
         />
       ) : (
-        <NewPasswordForm />
+        <NewPasswordForm token={token} />
       )}
     </>
   );
