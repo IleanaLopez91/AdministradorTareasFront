@@ -14,7 +14,11 @@ function NewPassword() {
         <span className=" text-fuchsia-500 font-bold"> por email</span>
       </p>
       {!isValidToken ? (
-        <NewPasswordToken token={token} setToken={setToken} />
+        <NewPasswordToken
+          token={token}
+          setToken={setToken}
+          setIsValidToken={setIsValidToken}
+        />
       ) : (
         <NewPasswordForm />
       )}
