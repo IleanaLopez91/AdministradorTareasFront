@@ -14,7 +14,7 @@ function NotesPanel({ notes }: NotesPanelProps) {
           <>
             <p className=" font-bold text-2xl text-slate-600 my-5">Notas:</p>
             {notes.map((note) => (
-              <NoteDetail />
+              <NoteDetail key={note._id} note={note} />
             ))}
           </>
         ) : (
