@@ -1,13 +1,16 @@
 import { Fragment } from "react";
 import { Menu, MenuButton, MenuItems, Transition } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteProject, getProjects } from "@/api/ProjectAPI";
 import { toast } from "react-toastify";
 import { useAuth } from "@/hooks/useAuth";
+import DeleteProjectModal from "@/components/projects/DeleteProjectModal";
 
 function DashboardView() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { data: user, isLoading: authLoading } = useAuth();
   const { data, isLoading } = useQuery({
     queryKey: ["projects"],
@@ -26,8 +29,6 @@ function DashboardView() {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
     },
   });
-
-  console.log(user?._id);
 
   if (isLoading && authLoading) return "CARGANDO...";
 
@@ -125,7 +126,12 @@ function DashboardView() {
                               <button
                                 type="button"
                                 className="block px-3 py-1 text-sm leading-6 text-red-500"
-                                onClick={() => mutate(project._id)}
+                                onClick={() =>
+                                  navigate(
+                                    location.pathname +
+                                      `?deleteProject=${project._id}`
+                                  )
+                                }
                               >
                                 Eliminar Proyecto
                               </button>
@@ -147,6 +153,7 @@ function DashboardView() {
             </Link>
           </p>
         )}
+        <DeleteProjectModal />
       </>
     );
 }
